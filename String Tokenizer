@@ -1,0 +1,39 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+char *mystrtok(char *str, char delim){
+    static char *input=NULL;
+    if(str!=NULL){
+        //first function call
+        input=str;
+    }
+    char *output=new char [strlen(input)+1];
+    int i=0;
+    for (;input[i]!='\0';i++){
+        if(input[i]!=delim){
+            output[i]=input[i];
+        }
+        else{
+            output[i]='\0';
+            input=input+i+1;
+            return output;
+        }
+    }
+    //corner case
+    output[i]='\0';
+    input=NULL;
+    return output;
+    //base case
+    if(input==NULL){
+        return NULL;
+    }
+}
+int main() {
+    char delim = ' ';
+    char s[100]="today is a very amazing day";
+    char *ptr=mystrtok(s,delim);
+    while(ptr!=NULL){
+        ptr=mystrtok(NULL,delim);
+        cout<<ptr<<endl;
+    }
+}
